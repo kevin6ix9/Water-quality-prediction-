@@ -284,11 +284,17 @@ plt.show()
 
 import pandas as pd
 import numpy as np
+from sklearn import preprocessing
+le = preprocessing.LabelEncoder()
+
 from sklearn.model_selection import train_test_split
 # Drop unnecessary columns from 'df' and create the feature matrix 'X'
 X = df.drop(columns=['quality', 'station', 'location', 'state', 'wqi'])
 
 # Create the target variable 'y'
+le.fit(df['quality'])
+df['quality']=le.transform(df['quality'])
+
 y = df['quality']
 # Get the unique values in the 'quality' column
 unique_labels = y.unique()
@@ -367,15 +373,12 @@ X_test = scaler.transform(X_test)
 # In[29]:
 
 
-from sklearn import preprocessing
-le = preprocessing.LabelEncoder()
-le.fit(df['quality'])
 
 
 # In[30]:
 
 
-df['quality']=le.transform(df['quality'])
+
 
 
 # In[31]:
